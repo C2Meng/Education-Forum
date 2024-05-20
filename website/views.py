@@ -1,3 +1,5 @@
+#handles POST and GET requests
+
 from flask import Blueprint, render_template
 
 views = Blueprint('views', __name__)

@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block title %}Quiz {%endblock %}
+{% block content %}
+<h1>Create Quiz</h1>
+<form method="post">
+    <div>
+        <label for="question">Question:</label>
+        <textarea id="question" name="question" class="form-control"></textarea>
+    </div>
+    <div>
+        <label for="choice-0">Choice 1:</label>
+        <input type="text" id="choice-0" name="choice-0" class="form-control">
+    </div>
+    <div>
+        <label for="choice-1">Choice 2:</label>
+        <input type="text" id="choice-1" name="choice-1" class="form-control">
+    </div>
+    <div>
+        <label for="choice-2">Choice 3:</label>
+        <input type="text" id="choice-2" name="choice-2" class="form-control">
+    </div>
+    <div>
+        <label for="choice-3">Choice 4:</label>
+        <input type="text" id="choice-3" name="choice-3" class="form-control">
+    </div>
+    <div>
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer" name="answer" class="form-control">
+    </div>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Question</button>
+    </div>
+</form>
+{% endblock %}  
