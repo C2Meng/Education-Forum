@@ -33,3 +33,4 @@ def create_quiz():
         quizzes.append({"question": new_question, "choices": new_choices, "answer": new_answer})
         return redirect(url_for('question.quiz'))
     return render_template('create-quiz.html')
+
