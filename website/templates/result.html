@@ -1,4 +1,14 @@
-{% extends "base.html" %} {% block title %}Quiz{% endblock %} 
+{% extends "base.html" %}
+{% block title %}{{ quiz.title }}{% endblock %}
 {% block content %}
-<h1>Result</h1>
+
+<h1>Score: {{score}}</h1>
+{% for question in quiz.questions %}
+    <h2>{{ question.text }}</h2>
+    <ul>
+        {% for answer in question.answers %}
+            <li>{{ answer.text }} {% if answer.is_correct %}(Correct){% endif %}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
 {% endblock %}
