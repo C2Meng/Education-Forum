@@ -24,3 +24,5 @@ def quiz():
 
 
 3. learn methods of POST and GET
+
+4. Learn how to make mcq quiz maker in python first

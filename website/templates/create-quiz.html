@@ -1,33 +1,50 @@
-{% extends "base.html" %} {% block title %}Quiz {%endblock %}
+{% extends "base.html" %} 
+{% block title %}Create Quiz{% endblock %}
 {% block content %}
-<h1>Create Quiz</h1>
-<form method="post">
-    <div>
+<h2 align="left">Create Quiz</h2>
+<form action="{{ url_for('question.create_quiz') }}" method="POST">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Subject</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name="subject">
+            <option selected>Choose...</option>
+            <option type="text" class="form-control" id="digital_system" name="digital_system" value="Digital System">Digital System</option>
+            <option type="text" class="form-control" id="english" name="english value="English">English</option>
+            <option type="text" class="form-control" id="mathematics" name="mathematics"value="Mathematics">Mathematics</option>
+        </select>
+    </div>
+
+    <div class="form-group">
         <label for="question">Question:</label>
-        <textarea id="question" name="question" class="form-control"></textarea>
+        <input type="text" class="form-control" id="question" name="question">
     </div>
-    <div>
-        <label for="choice-0">Choice 1:</label>
-        <input type="text" id="choice-0" name="choice-0" class="form-control">
+
+    <div class="form-group">
+        <label for="choice1">Choice 1:</label>
+        <input type="text" class="form-control" id="choice1" name="choices">
     </div>
-    <div>
-        <label for="choice-1">Choice 2:</label>
-        <input type="text" id="choice-1" name="choice-1" class="form-control">
+
+    <div class="form-group">
+        <label for="choice2">Choice 2:</label>
+        <input type="text" class="form-control" id="choice2" name="choices">
     </div>
-    <div>
-        <label for="choice-2">Choice 3:</label>
-        <input type="text" id="choice-2" name="choice-2" class="form-control">
+
+    <div class="form-group">
+        <label for="choice3">Choice 3:</label>
+        <input type="text" class="form-control" id="choice3" name="choices">
     </div>
-    <div>
-        <label for="choice-3">Choice 4:</label>
-        <input type="text" id="choice-3" name="choice-3" class="form-control">
+
+    <div class="form-group">
+        <label for="choice4">Choice 4:</label>
+        <input type="text" class="form-control" id="choice4" name="choices">
     </div>
-    <div>
-        <label for="answer">Answer:</label>
-        <input type="text" id="answer" name="answer" class="form-control">
+
+    <div class="form-group">
+        <label for="answer">Correct Answer:</label>
+        <input type="text" class="form-control" id="answer" name="correct_answer">
     </div>
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Add Question</button>
-    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
 </form>
-{% endblock %}  
+{% endblock %}
