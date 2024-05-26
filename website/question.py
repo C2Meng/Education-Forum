@@ -38,12 +38,6 @@ def create_quiz():
     
    return render_template('create-quiz.html')
    
-
-
-@question.route('/result')
-def result():
-    return render_template('result.html')
-
 @question.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
 def display_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
@@ -62,3 +56,4 @@ def submit_quiz(quiz_id):
             score += 1
     
     return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions)
+
