@@ -1,0 +1,50 @@
+{% extends "base.html" %} 
+{% block title %}Create Quiz{% endblock %}
+{% block content %}
+<h1 align="left">Create Quiz</h1>
+<form action="{{ url_for('question.create_quiz') }}" method="POST">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Subject</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name="subject">
+            <option selected>Choose...</option>
+            <option type="text" class="form-control" id="digital_system" name="digital_system" value="Digital System">Digital System</option>
+            <option type="text" class="form-control" id="english" name="english value="English">English</option>
+            <option type="text" class="form-control" id="mathematics" name="mathematics"value="Mathematics">Mathematics</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="question">Question:</label>
+        <input type="text" class="form-control form-control-lg" id="question" name="question" placeholder="Enter your question here">
+    </div>
+
+    <div class="form-group">
+        <label for="choice1">Choice 1:</label>
+        <input type="text" class="form-control" id="choice1" name="choices"  placeholder="Enter choice one">
+    </div>
+
+    <div class="form-group">
+        <label for="choice2">Choice 2:</label>
+        <input type="text" class="form-control" id="choice2" name="choices" placeholder="Enter choice two">
+    </div>
+
+    <div class="form-group">
+        <label for="choice3">Choice 3:</label>
+        <input type="text" class="form-control" id="choice3" name="choices" placeholder="Enter choice three">
+    </div>
+
+    <div class="form-group">
+        <label for="choice4">Choice 4:</label>
+        <input type="text" class="form-control" id="choice4" name="choices" placeholder="Enter choice four">
+    </div>
+
+    <div class="form-group">
+        <label for="answer">Correct Answer:</label>
+        <input type="text" class="form-control" id="answer" name="correct_answer"  placeholder="Enter the correct answer">
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-sm">Add Question</button>
+</form>
+{% endblock %}
