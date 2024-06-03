@@ -37,7 +37,7 @@ def sign_up():
         elif len(user_status) < 7:
             flash('User status must be more than 7 characters', category='error')
         else:
-            new_user = User(email=email, full_name=full_name, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email=email, full_name=full_name, password=generate_password_hash(password1))
             db.session.add(new_user)
             db.session.commit()
             flash('Account created!', category='success')
