@@ -37,9 +37,10 @@ def create_quiz():
    
    return render_template('create-quiz.html', user=current_user)
    
-@question.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
+@question.route('/display-quiz/<int:quiz_id>', methods=['GET', 'POST'])
 def display_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
+   
     return render_template('quiz.html', quiz=quiz, user=current_user)
 
 
