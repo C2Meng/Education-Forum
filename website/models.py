@@ -6,13 +6,30 @@ from sqlalchemy.sql import func #implements automatic time recording
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key= True)  #creating unique id for quiz 
     title = db.Column(db.String(100), nullable=False) #nullable=false means not accepting null values
     description = db.Column(db.String(200)) #actually instructions for the quiz, should appear before student answers quiz
     subject = db.Column(db.String(100), nullable= False)
     questions = db.relationship('Question', backref ='quiz', lazy=True)
-    
+    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     
 
 class Question(db.Model):
