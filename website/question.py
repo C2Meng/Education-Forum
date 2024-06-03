@@ -1,6 +1,6 @@
-from website import db
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Quiz, Question, Answer
+from website import db
 from flask_login import current_user
 
 question = Blueprint('question', __name__)
@@ -34,8 +34,7 @@ def create_quiz():
         db.session.commit()
         
         return redirect(url_for('question.display_quiz', quiz_id=quiz.id))
-    
-    
+   
    return render_template('create-quiz.html', user=current_user)
    
 @question.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
