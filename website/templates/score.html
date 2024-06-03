@@ -1,0 +1,69 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #6792c4;
+        }
+        .container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .score {
+            font-size: 48px;
+            color: #88b9cb;
+        }
+        .retake-btn {
+            background-color:#315791;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .retake-btn:hover {
+            background-color: #DAE9FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Results</h1>
+        <p>Your Score:</p>
+        <p class="score">%</p>
+        <p>Great job! You passed the quiz.</p>
+        <button class="retake-btn" onclick="retakeQuiz()">Retake Quiz</button>
+    </div>
+
+    <script>
+        function retakeQuiz() {
+            window.location.href = 'quiz.html'; // Adjust the URL to the quiz page
+        }
+    </script>
+
+
+</body>
