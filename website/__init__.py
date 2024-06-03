@@ -27,7 +27,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(question, url_prefix='/')
     app.register_blueprint(teacher, url_prefix='/')
-    
+   
     
     return app 
 

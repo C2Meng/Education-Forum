@@ -1,17 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Take Quiz{% endblock %}
 {% block content %}
-<h3 align="center" ><strong>Title:</strong> {{ quiz.title }}</h3>
-<p align="center"><strong>Subject:</strong> {{ quiz.subject }}</p>
+
+<p><strong>Subject:</strong> {{ quiz.subject }}</p>
 
 
 <form action="{{ url_for('question.submit_quiz', quiz_id=quiz.id) }}" method="POST">
     {% for question in quiz.questions %}
         <div class="mb-4">
+            
             <h4>{{ loop.index }}. {{ question.text }}</h4>
             {% for answer in question.answers %}
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="question_{{ question.id }}" id="answer_{{ answer.id }}" value="{{ answer.id }}" required>
+                    <input class="form-check-input" 
+                    type="radio" 
+                    title="title_{{title.id}}"
+                    name="question_{{ question.id }}" 
+                    id="answer_{{ answer.id }}" 
+                    value="{{ answer.id }}" required>
+
                     <label class="form-check-label" for="answer_{{ answer.id }}">
                         {{ answer.text }}
                     </label>
