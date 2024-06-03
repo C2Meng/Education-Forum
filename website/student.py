@@ -3,9 +3,9 @@ from flask import Blueprint, render_template
 student = Blueprint('student', __name__)
 
 @student.route('/quizcode')
-def discovery():
+def quizcode():
     return render_template('quizcode.html')
 
 @student.route('/score')
-def admin():
+def score():
     return render_template('score.html')
