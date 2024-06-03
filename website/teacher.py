@@ -9,3 +9,7 @@ def discovery():
 @teacher.route('/admin_home')
 def admin():
     return render_template('admin_home.html')
+
+@teacher.route('/quiz_data')
+def quiz_data():
+    return render_template('quiz_data.html')
