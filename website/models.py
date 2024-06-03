@@ -17,20 +17,16 @@ class Quiz(db.Model):
     description = db.Column(db.String(200))
     subject = db.Column(db.String(100), nullable= False)
     questions = db.relationship('Question', backref ='quiz', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable = False)
     text = db.Column(db.String(150), nullable = False)
-
     answers = db.relationship('Answer', backref='question', lazy = True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Answer(db.Model):
-
     id = db.Column(db.Integer, primary_key = True)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
     text = db.Column(String(100), nullable=False)
     is_correct =db.Column(db.Boolean, nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  
