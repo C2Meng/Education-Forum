@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Admin{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin-top: 5%; margin-bottom: 3%">
+    <h1 style=" color: white; display:inline-block;">
+        <div class="button" style="background-color: #95B8ED; padding:3px 15px; border-radius: 5px;">
+            # 001
+        </div>
+    </h1>
+    <h1 style="display:inline-block; margin-left: 1%; font-weight: bold;">MT1134-TC3L</h1>
+    <p >Here's how your class did for this quiz.</p>
+</div>
+
+<div class="container">
+    <table class="table table-sm" id="quizData">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Student ID</th>
+                <th scope="col">Marks</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Jack</td>
+                <td>12345678</td>
+                <td>8/10</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-outline-dark btn-sm" href="/quiz_data" style="margin-right: 5px;">View Quiz</button>
+    <button class="btn btn-outline-dark btn-sm" id="exportBtn">Export to CSV</button>
+
+    
+</div>
+
+
+
+{% endblock %}
