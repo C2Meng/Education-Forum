@@ -1,8 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from os import path
 
 db = SQLAlchemy()
-
+DB_NAME = "users.db"
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hello kitty'
@@ -13,21 +14,20 @@ def create_app():
     from .auth import auth
     from .question import question
     from .teacher import teacher
-    
-
-
-    
-   
-
-    from .models import Quiz, Question, Answer
-    with app.app_context():
-        db.create_all()
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(question, url_prefix='/')
     app.register_blueprint(teacher, url_prefix='/')
     
-    
+    from .models import Quiz, Question, Answer, User
+    with app.app_context():
+         create_database(app)
+
     return app 
 
+def create_database(app):
+    if not path.exists('website/'+ DB_NAME):
+        with app.app_context():
+            db.create_all()
+            print('Created Database!')
