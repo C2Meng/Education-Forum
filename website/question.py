@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .models import Quiz, Question, Answer
+from .models import Quiz, Question, Answer, User
 from website import db
 from flask_login import current_user
 
@@ -7,8 +7,9 @@ question = Blueprint('question', __name__)
 
 @question.route('/my-quiz', methods = ['GET', 'POST'] )
 def my_quiz():
+    user= User.query.all()
     quizzes = Quiz.query.all()
-    return render_template('my-quiz.html', quizzes=quizzes)
+    return render_template('my-quiz.html', quizzes=quizzes, user=current_user)
 
 @question.route('/create-quiz', methods = ['GET','POST'])
 def create_quiz():
@@ -65,5 +66,5 @@ def submit_quiz(quiz_id):
 @question.route('/admin_home',methods = ['GET', 'POST'] )
 def admin_home():
     quizzes = Quiz.query.all()
-    return render_template('admin_home.html', quizzes=quizzes)
+    return render_template('admin_home.html', quizzes=quizzes, user=current_user)
 
