@@ -5,10 +5,15 @@ from flask_login import current_user
 
 question = Blueprint('question', __name__)
 
+@question.route('/my-quiz', methods = ['GET', 'POST'] )
+def my_quiz():
+    quizzes = Quiz.query.all()
+    return render_template('my-quiz.html', quizzes=quizzes)
 
 @question.route('/create-quiz', methods = ['GET','POST'])
 def create_quiz():
    if request.method == 'POST':
+        title = request.form['title']
         subject = request.form['subject']
         question_text = request.form['question']
         choices = request.form.getlist('choices')
@@ -16,7 +21,7 @@ def create_quiz():
         
         
         # Create the quiz
-        quiz = Quiz(title=subject, subject=subject, description=f"Quiz on {subject}")
+        quiz = Quiz(title=title, subject=subject, description=f"Quiz on {subject}")
         db.session.add(quiz)
         db.session.commit()
         
