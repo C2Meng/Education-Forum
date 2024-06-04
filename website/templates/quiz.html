@@ -5,7 +5,7 @@
 <p align="center"><strong>Subject:</strong> {{ quiz.subject }}</p>
 
 
-<form action="{{ url_for('question.submit_quiz', quiz_id=quiz.id) }}" method="POST">
+<form action="{{ url_for('question.display_quiz', quiz_id=quiz.id) }}" method="POST">
     {% for question in quiz.questions %}
         <div class="mb-4">
             <h4>{{ loop.index }}. {{ question.text }}</h4>

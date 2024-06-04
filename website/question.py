@@ -1,7 +1,7 @@
-from website import db
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Quiz, Question, Answer
-
+from website import db
+from flask_login import current_user
 
 question = Blueprint('question', __name__)
 
@@ -39,14 +39,14 @@ def create_quiz():
         db.session.commit()
         
         return redirect(url_for('question.display_quiz', quiz_id=quiz.id))
-    
-    
-   return render_template('create-quiz.html')
    
-@question.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
+   return render_template('create-quiz.html', user=current_user)
+   
+@question.route('/display-quiz/<int:quiz_id>', methods=['GET', 'POST'])
 def display_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
-    return render_template('quiz.html', quiz=quiz)
+   
+    return render_template('quiz.html', quiz=quiz, user=current_user)
 
 
 @question.route('/submit-quiz/<int:quiz_id>', methods=['POST'])
@@ -60,7 +60,7 @@ def submit_quiz(quiz_id):
         if selected_answer and selected_answer.is_correct:
             score += 1
     
-    return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions)
+    return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
 
 @question.route('/admin_home',methods = ['GET', 'POST'] )
 def admin_home():
