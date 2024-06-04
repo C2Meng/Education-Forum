@@ -11,23 +11,14 @@ def discovery():
 
 @teacher.route('/admin_home')
 def admin():
-<<<<<<< HEAD
-<<<<<<< HEAD
-    return render_template('admin_home.html', user=current_user)
+   return render_template('admin_home.html', user=current_user)
 
 @question.route('/quiz')
 def display_quiz():
-    return render_template('quiz.html', user=current_user)
-=======
-=======
->>>>>>> main
-    return render_template('admin_home.html')
+    return render_template('quiz.html', user=current_use)
+
 
 @teacher.route('/quiz_data')
 def quiz_data():
-<<<<<<< HEAD
     return render_template('quiz_data.html')
->>>>>>> main
-=======
-    return render_template('quiz_data.html')
->>>>>>> main
+
