@@ -11,12 +11,12 @@ teacher = Blueprint('teacher', __name__)
 def discovery():
     return render_template('discovery.html', user=current_user)
 
-@teacher.route('/admin_home')
-def admin():
-   return render_template('admin_home.html', user=current_user)
+@teacher.route('/admin_home',methods = ['GET'] )
+def admin_home():
+    quizzes = Quiz.query.all()
+    return render_template('admin_home.html', quizzes=quizzes, user=current_user)
 
-
-@teacher.route('/quiz_data')
-def quiz_data():
-    return render_template('quiz_data.html', user= current_user)
-
+@teacher.route('/quiz_data/<int:quiz_id>', methods = ['GET','POST'])
+def quiz_data(quiz_id):
+    quiz = Quiz.query.get(quiz_id)
+    return render_template('quiz_data.html', user=current_user, quiz=quiz)

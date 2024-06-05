@@ -63,8 +63,6 @@ def submit_quiz(quiz_id):
     
     return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
 
-@question.route('/admin_home',methods = ['GET', 'POST'] )
-def admin_home():
-    quizzes = Quiz.query.all()
-    return render_template('admin_home.html', quizzes=quizzes, user=current_user)
+
+
 
