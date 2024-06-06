@@ -28,7 +28,7 @@
                 <th scope="row">1</th>
                 <td>Jack</td>
                 <td>12345678</td>
-                <td>8/10</td>
+                <td>8</td>
             </tr>
         </tbody>
     </table>
@@ -37,6 +37,35 @@
 
     
 </div>
+
+<script> // JS to export table to CSV
+    document.getElementById('exportBtn').addEventListener('click', function () { 
+        var csv = [];
+        var rows = document.querySelectorAll("#quizData tr");
+
+        //Loop through all rows
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
+            
+            //Loop through all columns in a row
+            for (var j = 0; j < cols.length; j++) 
+                row.push(cols[j].innerText); // Push text content in cell to row array
+            
+            csv.push(row.join(","));  // Join row array in a single string, push to csv array  
+        }
+
+        // Download CSV file
+        //Create Blob[stores data from csv array],{MIME type: file type}
+        var csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+        var downloadLink = document.createElement("a");
+        downloadLink.download = "quiz_data.csv"; //File name output
+        downloadLink.href = window.URL.createObjectURL(csvFile);//Create URL for blob to download
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);//Add anchor element
+        downloadLink.click(); //Trigger download when click
+        document.body.removeChild(downloadLink);//Remove anchor element
+    });
+</script>
 
 
 
