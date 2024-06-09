@@ -2,7 +2,8 @@ from flask import Blueprint, render_template
 from flask_login import current_user
 from website import db
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .models import Quiz, Question, Answer
+from .models import Quiz, Question, Answer, StudentResult
+from sqlalchemy import func
 
 
 teacher = Blueprint('teacher', __name__)
@@ -19,4 +20,17 @@ def admin_home():
 @teacher.route('/quiz_data/<int:quiz_id>', methods = ['GET','POST'])
 def quiz_data(quiz_id):
     quiz = Quiz.query.get(quiz_id)
-    return render_template('quiz_data.html', user=current_user, quiz=quiz)
+
+    # Subquery to get the minimum id for each user in each quiz
+    subquery = db.session.query(
+        func.min(StudentResult.id).label('min_id')
+    ).filter(
+        StudentResult.quiz_id==quiz_id
+    ).group_by(StudentResult.user_id).subquery()
+    
+    # Query to get the first entry for each user (display first attempt score only)
+    first_results = db.session.query(StudentResult).filter(
+        StudentResult.id == subquery.c.min_id
+    ).all()
+    
+    return render_template('quiz_data.html', user=current_user, quiz=quiz, all_results=first_results)

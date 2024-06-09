@@ -13,7 +13,7 @@
 
 
 
-<form action="{{ url_for('question.display_quiz', quiz_id=quiz.id) }}" method="POST">
+<form action="{{ url_for('question.submit_quiz', quiz_id=quiz.id) }}" method="POST">
     {% for question in quiz.questions %}
         <div class="card p-3" style="margin:2% 10%; border-radius: 10px;">
             <p1>{{ loop.index }}. {{ question.text }}</p1><br>
