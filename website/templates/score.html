@@ -1,70 +1,119 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Results</title>
-    
+    <title>Scoreboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            color: #4d4a4a;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
         .container {
-            background-color: #fff;
+            max-width: 800px;
+            width: 100%;
+            background: #fff;
             padding: 20px;
-            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: .25rem;
+        }
+        h1 {
             text-align: center;
-            width: 300px;
+            color: #333;
         }
-        .container h1 {
-            margin-bottom: 20px;
+        .result {
+            text-align: center;
+            margin: 20px 0;
             font-size: 24px;
-            color: #6792c4;
         }
-        .container p {
-            font-size: 18px;
-            margin-bottom: 20px;
+        .leaderboard {
+            margin-top: 40px;
         }
-        .score {
-            font-size: 48px;
-            color: #88b9cb;
+        .leaderboard h2 {
+            text-align: center;
+            color: #333;
         }
-        .retake-btn {
-            background-color:#315791;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        .retake-btn:hover {
-            background-color: #DAE9FF;
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .score-box {
+            border: 1px solid #d5d8db;
+            border-radius: .25rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            padding: 10px;
+            background-color: #f7fafc;
+            text-align: center;
+            margin: 0 auto 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Quiz Results</h1>
-        <p>Your Score:</p>
-        <p class="score">%</p>
-        <p>Great job! You passed the quiz.</p>
-        <button class="retake-btn" onclick="retakeQuiz()">Retake Quiz</button>
+        
+        <div class="score-box">
+            <h4>Quiz Results</h4>
+            <h5>Your Score</h5>
+            <p id="user-score">%</p>
+            <a>Great job!</a>
+        </div>
+        <div class="leaderboard">
+            <h2>Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                  
+                </tbody>
+            </table>
+        </div>
     </div>
-
     <script>
-        function retakeQuiz() {
-            window.location.href = 'quiz.html'; // Adjust the URL to the quiz page
+        
+        const leaderboardData = [
+            { rank: 1, name: 'Tim', score: 95 },
+            { rank: 2, name: 'Jane', score: 90 },
+            { rank: 3, name: 'Edward', score: 85 },
+            { rank: 4, name: 'Bella', score: 80 },
+            { rank: 5, name: 'Jasper', score: 75 }
+        ];
+
+        function renderLeaderboard(data) {
+            const leaderboardBody = document.getElementById('leaderboard-body');
+            data.forEach(entry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${entry.rank}</td><td>${entry.name}</td><td>${entry.score}</td>`;
+                leaderboardBody.appendChild(row);
+            });
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLeaderboard(leaderboardData);
+            document.getElementById('user-score').innerText = leaderboardData[0].score + '%';
+        });
     </script>
-
-
 </body>
+</html>
