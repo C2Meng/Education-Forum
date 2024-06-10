@@ -39,16 +39,25 @@ def create_quiz():
         
         db.session.commit()
         
-        return redirect(url_for('question.display_quiz', quiz_id=quiz.id))
+        return redirect(url_for('question.my_quiz', quiz_id = quiz.id))
+        #return redirect(url_for('question.display_quiz', quiz_id=quiz.id))
    
    return render_template('create-quiz.html', user=current_user)
    
+
+#answering quiz   
 @question.route('/display_quiz/<int:quiz_id>', methods=['GET', 'POST'])
 def display_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
    
     return render_template('quiz.html', quiz=quiz, user=current_user)
 
+#viewing quiz only
+@question.route('/view_quiz/<int:quiz_id>', methods=['GET', 'POST'])
+def view_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+
+    return render_template('view_quiz.html', quiz=quiz, user=current_user)
 
 @question.route('/submit-quiz/<int:quiz_id>', methods=['POST'])
 def submit_quiz(quiz_id):

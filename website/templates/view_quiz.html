@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Take Quiz{% endblock %}
+{% block content %}
+<body style="background-color: #E8F1F1;">
+
+
+<div  class="card p-3" style="margin:0% 10%; border-radius: 10px;">
+    <h3 align="center">{{quiz.title}}</h3>
+    <p align="center"><strong>Subject:</strong> {{ quiz.subject }}</p>
+</div>
+
+   
+
+
+
+
+    {% for question in quiz.questions %}
+        <div class="card p-3" style="margin:2% 10%; border-radius: 10px;">
+            <p1>{{ loop.index }}. {{ question.text }}</p1><br>
+            {% set choice_labels = ['A', 'B', 'C', 'D'] %}
+            {% for answer in question.answers %}
+                <div class="form-check">
+                    <label name="question_{{ question.id }}" id="answer_{{ answer.id }}" value="{{ answer.id }}" required> </label>
+                    <label class="form-check-label" for="answer_{{ answer.id }}">
+                        {{ choice_labels[loop.index0] }}.{{ answer.text }}
+                    </label>
+                    
+                    
+                </div>
+                
+            {% endfor %}
+
+            <p  style="padding-top: 2%; padding-left: 3%;"><strong>Correct Answer:</strong> 
+                {% for answer in question.answers %}
+                    {% if answer.is_correct %}
+                        {{ answer.text }}
+                    {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+    {% endfor %}
+    
+
+</body>
+{% endblock %}
