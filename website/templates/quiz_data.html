@@ -34,7 +34,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <button class="btn btn-outline-dark btn-sm" href="/quiz_data" style="margin-right: 5px;">View Quiz</button>
+    <a class="btn btn-outline-dark btn-sm" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}" style="margin-right: 5px;">View Quiz</a>
     <button class="btn btn-outline-dark btn-sm" id="exportBtn">Export to CSV</button>
 
     
