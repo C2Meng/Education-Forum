@@ -7,6 +7,21 @@
     <p>Welcome! Here are your ongoing quizzes</p>
 </div>
 
+<div class="container" style="margin-top: 5%; margin-bottom: 5%">
+<form action="submit_quiz_code.php" method="post">
+    <label for="quiz-code">Enter Quiz Code:</label>
+    <input type="text" id="quiz-code" name="quiz-code" required>
+    <button type="submit">Enter</button>
+    </form>
+    
+    
+    <div id="codeContainer" style="display: none;">
+      <textarea id="codeArea" rows="10" cols="50" placeholder="Enter  code here..."></textarea>
+      <br>
+      <button id="submitCodeButton">Submit Code </button>
+    </div>
+</div>
+
 
 <div class="container">
     <div class="row">
@@ -48,17 +63,6 @@
 
 
 
-<form action="submit_quiz_code.php" method="post">
-<label for="quiz-code">Enter Quiz Code:</label>
-<input type="text" id="quiz-code" name="quiz-code" required>
-<button type="submit">Enter</button>
-</form>
 
-
-<div id="codeContainer" style="display: none;">
-  <textarea id="codeArea" rows="10" cols="50" placeholder="Enter  code here..."></textarea>
-  <br>
-  <button id="submitCodeButton">Submit Code </button>
-</div>
 
 {% endblock %}

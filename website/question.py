@@ -61,7 +61,7 @@ def submit_quiz(quiz_id):
         if selected_answer and selected_answer.is_correct:
             score += 1
     
-    return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
+    return render_template('score.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
 
 @question.route('/admin_home',methods = ['GET', 'POST'] )
 def admin_home():
