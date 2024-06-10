@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="container" style="margin-top: 5%; margin-bottom: 5%">
-    <h1 style="font-weight: bold;">My Quiz</h1>
-    <p>Welcome back! Here's all your quizzes lined up for this term.</p>
+    <h1 style="font-weight: bold;">Manage Quizzes</h1>
+    <p>Welcome back, tutor! Here's all your quizzes lined up for this term.</p>
 </div>
 
 <div class="container">
@@ -12,7 +12,7 @@
 
     {% for quiz in quizzes %} <!--to display created quizzes-->
         <div class="col-lg-4" style="padding-bottom: 2%;">
-            <div class="card" style="background-color: #95B8ED;border-color: white;">
+            <div class="card" style="background-color: #8b2222;border-color: white;">
                 <div class="card-body" id="heading{{quiz.id}}"> <!--create card-->
                     <button 
                     class="btn btn-link" 
@@ -29,7 +29,7 @@
                 </div>
     
                 <div id="collapse{{quiz.id}}" class="collapse" aria-labelledby="heading{{quiz.id}}"> <!--create collapse feature-->
-                    <div class="card-footer"  style="background-color: #DAE9FF;border-color: #DAE9FF;">
+                    <div class="card-footer"  style="background-color: #8b2222;border-color: #DAE9FF;">
                         <small>Subject: {{quiz.subject}}</small><br>
                         <small>Date Created:  {{quiz.date_created}}</small><br>
                         <small>Completed: </small><br>

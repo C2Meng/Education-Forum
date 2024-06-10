@@ -19,7 +19,7 @@
             <p1>{{ loop.index }}. {{ question.text }}</p1><br>
             {% for answer in question.answers %}
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="question_{{quiz.id }}" id="answer_{{ answer.id }}" value="{{ answer.id }}" required>
+                    <input class="form-check-input" type="radio" name="question_{{question.id }}" id="answer_{{ answer.id }}" value="{{ answer.id }}" required>
                     <label class="form-check-label" for="answer_{{ answer.id }}">
                         {{ answer.text }}
                     </label>
