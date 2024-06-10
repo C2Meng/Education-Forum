@@ -35,8 +35,17 @@
                         <small>Completed: </small><br>
                         
                         <div class=" text-center"> <!--link current quiz.id to quiz_data URL-->
+                            <a class="btn btn-light btn-sm text-center" href= "{{ url_for('question.create_quiz')}}"
+                            style="margin-top: 2%;">Add question</a>
+
                             <a class="btn btn-light btn-sm" href="{{ url_for('teacher.quiz_data', quiz_id=quiz.id)}}"
                             style="margin-top: 2%;">View Data</a>
+
+                            <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}" 
+                            style="margin-top: 2%;">View Quiz</a>
+
+                            <a class="btn btn-light btn-sm text-center" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeZquD9O2en4zgwii80Tpjyc9MaMb_b0XJwQ&s" 
+                            style="margin-top: 2%;">Delete Quiz</a>
                         </div>
                     </div>
                 </div>
