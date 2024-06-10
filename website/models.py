@@ -3,25 +3,15 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.sql import func #implements automatic time recording
+from . import db
+from flask_login import UserMixin
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+    full_name = db.Column(db.String(150))
+   
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key= True)  #creating unique id for quiz 
@@ -29,7 +19,7 @@ class Quiz(db.Model):
     description = db.Column(db.String(200)) #actually instructions for the quiz, should appear before student answers quiz
     subject = db.Column(db.String(100), nullable= False)
     questions = db.relationship('Question', backref ='quiz', lazy=True)
-    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    date_created = db.Column(db.DateTime(timezone=True), default=func.now())  
     
 
 class Question(db.Model):
@@ -39,19 +29,21 @@ class Question(db.Model):
     answers = db.relationship('Answer', backref='question', lazy = True)
 
 class Answer(db.Model):
-
     id = db.Column(db.Integer, primary_key = True)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
     text = db.Column(String(100), nullable=False)
-    is_correct =db.Column(db.Boolean, nullable = False)
+    is_correct = db.Column(db.Boolean, nullable = False)
 
+class StudentResult(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
 
-#this should be keep track of student history based on past quiz results
-#shown history should include: what quiz, what subject, score, date, (and potentially mistakes student made)
-#class Result(db.Model):
-#user=
-#score=
-#date_answered=
-
+    quiz = db.relationship('Quiz', backref=db.backref('result', lazy=True))
+    user = db.relationship('User', backref=db.backref('result', lazy=True) )
     
 
+
+
+    

@@ -1,14 +1,15 @@
-from website import db
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .models import Quiz, Question, Answer
-
+from .models import Quiz, Question, Answer, User, StudentResult
+from website import db
+from flask_login import current_user
 
 question = Blueprint('question', __name__)
 
 @question.route('/my-quiz', methods = ['GET', 'POST'] )
 def my_quiz():
+    user= User.query.all()
     quizzes = Quiz.query.all()
-    return render_template('my-quiz.html', quizzes=quizzes)
+    return render_template('my-quiz.html', quizzes=quizzes, user=current_user)
 
 @question.route('/create-quiz', methods = ['GET','POST'])
 def create_quiz():
@@ -39,14 +40,14 @@ def create_quiz():
         db.session.commit()
         
         return redirect(url_for('question.display_quiz', quiz_id=quiz.id))
-    
-    
-   return render_template('create-quiz.html')
    
-@question.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
+   return render_template('create-quiz.html', user=current_user)
+   
+@question.route('/display_quiz/<int:quiz_id>', methods=['GET', 'POST'])
 def display_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
-    return render_template('quiz.html', quiz=quiz)
+   
+    return render_template('quiz.html', quiz=quiz, user=current_user)
 
 
 @question.route('/submit-quiz/<int:quiz_id>', methods=['POST'])
@@ -59,6 +60,18 @@ def submit_quiz(quiz_id):
         selected_answer = Answer.query.get(selected_answer_id)
         if selected_answer and selected_answer.is_correct:
             score += 1
+
+    #store score into db
+    student_result = StudentResult(
+        quiz_id=quiz.id,
+        user_id=current_user.id,
+        score=score
+    )
+    db.session.add(student_result)
+    db.session.commit()
     
-    return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions)
+    return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
+
+
+
 

@@ -5,10 +5,10 @@
 <div class="container" style="margin-top: 5%; margin-bottom: 3%">
     <h1 style=" color: white; display:inline-block;">
         <div class="button" style="background-color: #95B8ED; padding:3px 15px; border-radius: 5px;">
-            # 001
+            # {{quiz.id}}
         </div>
     </h1>
-    <h1 style="display:inline-block; margin-left: 1%; font-weight: bold;">MT1134-TC3L</h1>
+    <h1 style="display:inline-block; margin-left: 1%; font-weight: bold;">{{quiz.title}}</h1>
     <p >Here's how your class did for this quiz.</p>
 </div>
 
@@ -18,18 +18,20 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Student ID</th>
+                <th scope="col">E-mail</th>
                 <th scope="col">Marks</th>
             </tr>
         </thead>
 
         <tbody>
+            {% for result in all_results %} 
             <tr>
-                <th scope="row">1</th>
-                <td>Jack</td>
-                <td>12345678</td>
-                <td>8/10</td>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ result.user.full_name }}</td>
+                <td>{{ result.user.email }}</td>
+                <td>{{ result.score }}</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     <button class="btn btn-outline-dark btn-sm" href="/quiz_data" style="margin-right: 5px;">View Quiz</button>
@@ -37,6 +39,35 @@
 
     
 </div>
+
+<script> // JS to export table to CSV
+    document.getElementById('exportBtn').addEventListener('click', function () { 
+        var csv = [];
+        var rows = document.querySelectorAll("#quizData tr");
+
+        //Loop through all rows
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
+            
+            //Loop through all columns in a row
+            for (var j = 0; j < cols.length; j++) 
+                row.push(cols[j].innerText); // Push text content in cell to row array
+            
+            csv.push(row.join(","));  // Join row array in a single string, push to csv array  
+        }
+
+        // Download CSV file
+        //Create Blob[stores data from csv array],{MIME type: file type}
+        var csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+        var downloadLink = document.createElement("a");
+        downloadLink.download = "quiz_data.csv"; //File name output
+        downloadLink.href = window.URL.createObjectURL(csvFile);//Create URL for blob to download
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);//Add anchor element
+        downloadLink.click(); //Trigger download when click
+        document.body.removeChild(downloadLink);//Remove anchor element
+    });
+</script>
 
 
 
