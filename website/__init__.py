@@ -15,11 +15,13 @@ def create_app():
     from .auth import auth
     from .question import question
     from .teacher import teacher
+    from .student import student
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(question, url_prefix='/')
     app.register_blueprint(teacher, url_prefix='/')
+    app.register_blueprint(student, url_prefix='/')
     
     from .models import Quiz, Question, Answer, User, StudentResult
     with app.app_context():
