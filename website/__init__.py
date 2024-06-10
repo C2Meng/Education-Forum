@@ -23,7 +23,7 @@ def create_app():
     app.register_blueprint(teacher, url_prefix='/')
     app.register_blueprint(student, url_prefix='/')
     
-    from .models import Quiz, Question, Answer, User
+    from .models import Quiz, Question, Answer, User, StudentResult
     with app.app_context():
          create_database(app)
 
