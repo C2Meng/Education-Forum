@@ -36,3 +36,11 @@ class Answer(db.Model):
     text = db.Column(String(100), nullable=False)
     is_correct =db.Column(db.Boolean, nullable = False)
 
+class StudentResult(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+
+    quiz = db.relationship('Quiz', backref=db.backref('result', lazy=True))
+    user = db.relationship('User', backref=db.backref('result', lazy=True) )
