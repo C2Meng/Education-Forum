@@ -124,7 +124,7 @@ def submit_quiz(quiz_id):
     db.session.add(student_result)
     db.session.commit()
     
-    return render_template('result.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
+    return render_template('score.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
 
 
 
