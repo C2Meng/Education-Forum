@@ -11,8 +11,8 @@
 <div class="row">
 
     {% for quiz in quizzes %} <!--to display created quizzes-->
-        <div class="col-lg-4" style="padding-bottom: 2%;">
-            <div class="card" style="background-color: #8b2222;border-color: white;">
+        <div class="col-lg-3" style="padding-bottom: 2%;">
+            <div class="card" style="background-color: #FFA0A0;border-color: white;">
                 <div class="card-body" id="heading{{quiz.id}}"> <!--create card-->
                     <button 
                     class="btn btn-link" 
@@ -22,21 +22,22 @@
                     aria-controls="collapse{{quiz.id}}" 
                     style="text-align: left;">
 
-                        <h2 style="color: white;">Quiz #{{quiz.id}}</h2>
-                        <h2 style="color: white;">{{quiz.title}}</h2>
+                        <h3 style="color: white;">Quiz #{{quiz.id}}</h3>
+                        <h3 style="color: white;">{{quiz.title}}</h3>
 
                     </button>
                 </div>
     
                 <div id="collapse{{quiz.id}}" class="collapse" aria-labelledby="heading{{quiz.id}}"> <!--create collapse feature-->
-                    <div class="card-footer"  style="background-color: #DAE9FF;border-color: #DAE9FF;">
-                        <small>Subject: {{quiz.subject}}</small><br>
-                        <small>Date Created:  {{quiz.date_created}}</small><br>
-                        <small>Completed: </small><br>
+                    <div class="card-footer"  style="background-color: #FFE2E2;border-color: #DAE9FF;">
+                        <div>
+                          <small style="font-weight: 600;">Subject:  </small><small> {{quiz.subject}} </small> 
+                        </div>
+                        <div>
+                            <small style="font-weight: 600;">Date: </small><small> {{quiz.date_created}}</small>
+                        </div>
                         
                         <div class=" text-center"> <!--link current quiz.id to quiz_data URL-->
-                            <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}"
-                            style="margin-top: 2%;">Add question</a>
 
                             
                             <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}" 
@@ -57,7 +58,7 @@
         {% endfor %}
 
 
-    <div class="col-lg-4" style="padding-bottom: 2%;"> <!--create "Add More" card-->
+    <div class="col-lg-3" style="padding-bottom: 2%;"> <!--create "Add More" card-->
         <div class="card" style="background-color: #DEE4EE;border-color: white;">
             <div class="card-body text-center">
                 <a href="/create-quiz">

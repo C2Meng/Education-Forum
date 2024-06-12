@@ -27,7 +27,7 @@
     <div class="row">
     
         {% for quiz in quizzes %}
-        <div class="col-lg-4" style="padding-bottom: 2%;">
+        <div class="col-lg-3" style="padding-bottom: 2%;">
             <div class="card" style="background-color: #95B8ED;border-color: white;">
                 <div class="card-body" id="heading{{quiz.id}}">
                     <button 
@@ -38,17 +38,22 @@
                     aria-controls="collapse{{quiz.id}}" 
                     style="text-align: left;">
 
-                        <h2 style="color: white;">Quiz #{{quiz.id}}</h2>
-                        <h1 style="color: white;">{{quiz.title}}</h1>
+                        <h3 style="color: white;">Quiz: #{{quiz.id}}</h3>
+                        <h3 style="color: white;">{{quiz.title}}</h3>
 
                     </button>
                 </div>
     
                 <div id="collapse{{quiz.id}}" class="collapse" aria-labelledby="heading{{quiz.id}}">
                     <div class="card-footer"  style="background-color: #DAE9FF;border-color: #DAE9FF;">
-                        <small>Subject: {{quiz.subject}}</small><br>
-                        <small>Date Created:  {{quiz.date_created}}</small><br>
-                        <small>Due Date: </small><br>
+                
+                        <div>
+                            <small style="font-weight: 600;">Subject:  </small><small> {{quiz.subject}} </small> 
+                          </div>
+                          <div>
+                              <small style="font-weight: 600;">Date: </small><small> {{quiz.date_created}}</small>
+                          </div>
+                        
                         
                         <div class=" text-center">
                             <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.display_quiz', quiz_id=quiz.id) }}" 

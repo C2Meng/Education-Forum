@@ -39,6 +39,9 @@
             </p>
         </div>
     {% endfor %}
+
+    <a class="btn btn-primary btn-sm" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}" 
+    style="margin: 1% 10%;">Add question</a>
     
 
 </body>
