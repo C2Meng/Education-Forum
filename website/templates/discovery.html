@@ -12,46 +12,22 @@
 
 <div class="container">
 <div class="row" style="height: 200px;">
+    {% for quiz in quizzes %}
     <div class="col-lg-4" style="padding-bottom: 2%;">
         <div class="card h-100" style="background-color: #95B8ED;border-color: #95B8ED;">
-            <a class="card-body" href="/create-quiz">
+            <a class="card-body" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}">
                 <h2 style="color: white;">Quiz by:</h2>
-                <h1 style="color: white;">Mdm JMJ</h1>
+                <h1 style="color: white;">{{ user.full_name }}</h1>
             </a>
             <div class="card-footer"  style="background-color: white;border-color: white;">
-                <p1>Term: 24010</p1><br>
-                <p1>20 Questions - MCQ</p1>
+                <p1>Created on: {{ quiz.date_created }} </p1>
 
             </div>
         </div>
     </div>
-    <div class="col-lg-4" style="padding-bottom: 2%;">
-        <div class="card h-100" style="background-color: #FFA0A0;border-color: #FFA0A0;">
-            <a class="card-body" href="/create-quiz">
-                <h2 style="color: white;">Quiz by:</h2>
-                <h1 style="color: white;">Dr. Khan</h1>
-            </a> 
-            <div class="card-footer"  style="background-color: white;border-color: white;">
-                <p1>Term: 24010</p1><br>
-                <p1>20 Questions - MCQ</p1>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4" style="padding-bottom: 2%;">
-        <div class="card h-100" style="background-color: #F3D78E;border-color: #F3D78E;">
-            <a class="card-body" href="/create-quiz">
-                <h2 style="color: white;">Quiz by:</h2>
-                <h1 style="color: white;">Dr. Nisaa</h1>
-            </a>
-            <div class="card-footer"  style="background-color: white;border-color: white;">
-                <p1>Term: 24010</p1><br>
-                <p1>20 Questions - MCQ</p1>
-
-            </div>
-        </div>
-    </div>
-
+    {% endfor %}
+   
+   
 </div>
 </div>
 {% endblock %}

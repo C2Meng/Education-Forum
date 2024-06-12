@@ -30,7 +30,12 @@ def create_quiz():
         
         
         # Create the quiz
-        quiz = Quiz(title=title, subject=subject, description=f"Quiz on {subject}")
+        quiz = Quiz(
+            title=title, 
+            subject=subject, 
+            description=f"Quiz on {subject}",
+            user_id=current_user.id
+            )
         db.session.add(quiz)
         db.session.commit()
         

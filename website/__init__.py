@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-from flask_login import LoginManager 
+from flask_login import LoginManager
+
 
 db = SQLAlchemy()
 DB_NAME = "users.db"
@@ -42,3 +43,4 @@ def create_database(app):
         with app.app_context():
             db.create_all()
             print('Created Database!')
+
