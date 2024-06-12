@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="container" style="margin-top: 5%; margin-bottom: 5%">
-    <h1 style="font-weight: bold;">My Quiz</h1>
-    <p>Welcome back! Here's all your quizzes lined up for this term.</p>
+    <h1 style="font-weight: bold;">Manage Quizzes</h1>
+    <p>Welcome back, tutor! Here's all your quizzes lined up for this term.</p>
 </div>
 
 <div class="container">
@@ -12,7 +12,7 @@
 
     {% for quiz in quizzes %} <!--to display created quizzes-->
         <div class="col-lg-4" style="padding-bottom: 2%;">
-            <div class="card" style="background-color: #95B8ED;border-color: white;">
+            <div class="card" style="background-color: #8b2222;border-color: white;">
                 <div class="card-body" id="heading{{quiz.id}}"> <!--create card-->
                     <button 
                     class="btn btn-link" 
@@ -35,8 +35,20 @@
                         <small>Completed: </small><br>
                         
                         <div class=" text-center"> <!--link current quiz.id to quiz_data URL-->
+                            <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}"
+                            style="margin-top: 2%;">Add question</a>
+
+                            
+                            <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}" 
+                            style="margin-top: 2%;">View Quiz</a>
+
+
                             <a class="btn btn-light btn-sm" href="{{ url_for('teacher.quiz_data', quiz_id=quiz.id)}}"
                             style="margin-top: 2%;">View Data</a>
+
+
+                            <a class="btn btn-light btn-sm text-center" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeZquD9O2en4zgwii80Tpjyc9MaMb_b0XJwQ&s" 
+                            style="margin-top: 2%;">Delete Quiz</a>
                         </div>
                     </div>
                 </div>

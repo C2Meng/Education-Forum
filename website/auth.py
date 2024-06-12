@@ -62,5 +62,12 @@ def sign_up():
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
+        
 
-    return render_template("sign_up.html", user=current_user)
+    full_name = request.form.get('fullName','')
+    password1 = request.form.get('password1','') #redundant codes to store the info user keyed in, values keyed in html form
+    email = request.form.get('email', '')
+    password2 = request.form.get('password2','')
+    user_status = request.form.get('user_status')
+    return render_template("sign_up.html", user=current_user, full_name=full_name, 
+                           password1=password1, email=email, password2=password2, user_status=user_status)
