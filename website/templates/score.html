@@ -72,7 +72,7 @@
         <div class="score-box">
             <h4>Quiz Results</h4>
             <h5>Your Score</h5>
-            <p {{score}}>%</p>
+            <p> {{score}}</p>
             <a>Great job!</a>
         </div>
         <div class="leaderboard">
@@ -115,5 +115,9 @@
             document.getElementById('user-score').innerText = leaderboardData[0].score + '%';
         });
     </script>
+
+    <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.my_quiz', quiz_id=quiz.id) }}" 
+    style="margin-top: 50%;">Back</a>
+
 </body>
 </html>
