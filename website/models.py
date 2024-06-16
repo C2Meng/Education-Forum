@@ -22,6 +22,11 @@ class Quiz(db.Model):
     subject = db.Column(db.String(100), nullable= False)
     questions = db.relationship('Question', backref ='quiz', lazy=True)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+
+    user = db.relationship('User', backref=db.backref('tutor', lazy=True))
+    
     
 
 class Question(db.Model):

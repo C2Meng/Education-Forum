@@ -11,8 +11,8 @@
 <div class="row">
 
     {% for quiz in quizzes %} <!--to display created quizzes-->
-        <div class="col-lg-4" style="padding-bottom: 2%;">
-            <div class="card" style="background-color: #8b2222;border-color: white;">
+        <div class="col-lg-3" style="padding-bottom: 2%;">
+            <div class="card" style="background-color: #FFA0A0;border-color: white;">
                 <div class="card-body" id="heading{{quiz.id}}"> <!--create card-->
                     <button 
                     class="btn btn-link" 
@@ -22,21 +22,22 @@
                     aria-controls="collapse{{quiz.id}}" 
                     style="text-align: left;">
 
-                        <h2 style="color: white;">Quiz #{{quiz.id}}</h2>
-                        <h2 style="color: white;">{{quiz.title}}</h2>
+                        <h3 style="color: white;">Quiz #{{quiz.id}}</h3>
+                        <h3 style="color: white;">{{quiz.title}}</h3>
 
                     </button>
                 </div>
     
                 <div id="collapse{{quiz.id}}" class="collapse" aria-labelledby="heading{{quiz.id}}"> <!--create collapse feature-->
-                    <div class="card-footer"  style="background-color: #DAE9FF;border-color: #DAE9FF;">
-                        <small>Subject: {{quiz.subject}}</small><br>
-                        <small>Date Created:  {{quiz.date_created}}</small><br>
-                        <small>Completed: </small><br>
+                    <div class="card-footer"  style="background-color: #FFE2E2;border-color: #DAE9FF;">
+                        <div>
+                          <small style="font-weight: 600;">Subject:  </small><small> {{quiz.subject}} </small> 
+                        </div>
+                        <div>
+                            <small style="font-weight: 600;">Date: </small><small> {{quiz.date_created}}</small>
+                        </div>
                         
                         <div class=" text-center"> <!--link current quiz.id to quiz_data URL-->
-                            <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}"
-                            style="margin-top: 2%;">Add question</a>
 
                             
                             <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}" 
@@ -57,11 +58,11 @@
         {% endfor %}
 
 
-    <div class="col-lg-4" style="padding-bottom: 2%;"> <!--create "Add More" card-->
+    <div class="col-lg-3" style="padding-bottom: 2%;"> <!--create "Add More" card-->
         <div class="card" style="background-color: #DEE4EE;border-color: white;">
             <div class="card-body text-center">
                 <a href="/create-quiz">
-                <svg enable-background="new 0 0 512 512" height="107px" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="117px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffff"d="M256,512C114.625,512,0,397.391,0,256C0,114.609,114.625,0,256,0c141.391,0,256,114.609,256,256  C512,397.391,397.391,512,256,512z M256,64C149.969,64,64,149.969,64,256s85.969,192,192,192c106.047,0,192-85.969,192-192  S362.047,64,256,64z M288,384h-64v-96h-96v-64h96v-96h64v96h96v64h-96V384z"/></svg>
+                <svg enable-background="new 0 0 512 512" height="99px" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="117px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffff"d="M256,512C114.625,512,0,397.391,0,256C0,114.609,114.625,0,256,0c141.391,0,256,114.609,256,256  C512,397.391,397.391,512,256,512z M256,64C149.969,64,64,149.969,64,256s85.969,192,192,192c106.047,0,192-85.969,192-192  S362.047,64,256,64z M288,384h-64v-96h-96v-64h96v-96h64v96h96v64h-96V384z"/></svg>
                 </a>
             </div>
             
