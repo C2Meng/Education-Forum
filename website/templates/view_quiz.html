@@ -3,19 +3,15 @@
 {% block content %}
 <body style="background-color: #E8F1F1;">
 
-
-<div  class="card p-3" style="margin:2% 10%; border-radius: 10px;">
+<div style="margin-right: 10%; margin-left: 10%;">
+<div  class="card p-3" style="margin:2%; border-radius: 10px;">
     <h3 align="center">{{quiz.title}}</h3>
     <p align="center"><strong>Subject:</strong> {{ quiz.subject }}</p>
 </div>
 
-   
-
-
-
 
     {% for question in quiz.questions %}
-        <div class="card p-3" style="margin:2% 10%; border-radius: 10px;">
+        <div class="card p-3" style="margin:2%; border-radius: 10px;">
             <p1>{{ loop.index }}. {{ question.text }}</p1><br>
             {% set choice_labels = ['A', 'B', 'C', 'D'] %}
             {% for answer in question.answers %}
@@ -40,12 +36,14 @@
         </div>
     {% endfor %}
 
+    {% if quiz.user_id == current_user.id %}
     <a class="btn btn-dark btn-outline-light btn-sm" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}" 
-    style="margin-left: 10%; margin-right: 2%;">Add question</a>
+    style="margin-bottom: 2%; margin-left: 2%;">Add question</a>
+    {% endif %}
 
     <a class="btn btn-dark btn-outline-light btn-sm" href="{{ url_for('question.share_quiz', quiz_id=quiz.id) }}" 
-    >Share quiz</a>
-    
+    style="margin-bottom: 2%; margin-left: 2%;">Share quiz</a>
 
+</div>
 </body>
 {% endblock %}

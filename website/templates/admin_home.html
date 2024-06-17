@@ -10,7 +10,9 @@
 <div class="container">
 <div class="row">
 
+    
     {% for quiz in quizzes %} <!--to display created quizzes-->
+    {% if quiz.user_id == current_user.id %} <!--only display quizzes made my current tutor-->
         <div class="col-lg-3" style="padding-bottom: 2%;">
             <div class="card" style="background-color: #FFA0A0;border-color: white;">
                 <div class="card-body" id="heading{{quiz.id}}"> <!--create card-->
@@ -55,7 +57,9 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
+    {% endif %}
+    {% endfor %}
+    
 
 
     <div class="col-lg-3" style="padding-bottom: 2%;"> <!--create "Add More" card-->
