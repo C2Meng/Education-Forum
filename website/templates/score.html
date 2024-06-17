@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scoreboard</title>
     <style>
         body {
@@ -68,11 +64,10 @@
 </head>
 <body>
     <div class="container">
-        
         <div class="score-box">
             <h4>Quiz Results</h4>
             <h5>Your Score</h5>
-            <p {{score}}>%</p>
+            <p id="user-score"></p>
             <a>Great job!</a>
         </div>
         <div class="leaderboard">
@@ -89,10 +84,10 @@
                   
                 </tbody>
             </table>
-        </div>
+        </div> <br></br>
+        <button id="exportBtn">Export to CSV</button>
     </div>
     <script>
-        
         const leaderboardData = [
             { rank: 1, name: 'Tim', score: 95 },
             { rank: 2, name: 'Cassie', score: 90 },
@@ -112,7 +107,36 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderLeaderboard(leaderboardData);
+            // Assuming that the user's score corresponds to the first entry in the sample leaderboard data
             document.getElementById('user-score').innerText = leaderboardData[0].score + '%';
+        });
+
+        // JS to export table to CSV
+        document.getElementById('exportBtn').addEventListener('click', function () { 
+            var csv = [];
+            var rows = document.querySelectorAll("table tr");
+
+            // Loop through all rows
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
+
+                // Loop through all columns in a row
+                for (var j = 0; j < cols.length; j++) 
+                    row.push(cols[j].innerText); // Push text content in cell to row array
+
+                csv.push(row.join(","));  // Join row array in a single string, push to csv array  
+            }
+
+            // Download CSV file
+            // Create Blob (stores data from csv array), {MIME type: file type}
+            var csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+            var downloadLink = document.createElement("a");
+            downloadLink.download = "result_data.csv"; // File name output
+            downloadLink.href = window.URL.createObjectURL(csvFile); // Create URL for blob to download
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink); // Add anchor element
+            downloadLink.click(); // Trigger download when clicked
+            document.body.removeChild(downloadLink); // Remove anchor element
         });
     </script>
 </body>
