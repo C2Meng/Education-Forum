@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-from flask_login import LoginManager 
+from flask_login import LoginManager
+
 
 db = SQLAlchemy()
 DB_NAME = "users.db"
@@ -44,8 +45,13 @@ def create_database(app):
     if not path.exists('website/'+ DB_NAME):
         with app.app_context():
             db.create_all()
+<<<<<<< HEAD
             print('Created database for users')
     if not path.exists(DB_NAME_2):
         with app.app_context():
             db.create_all()
             print("Created database for user status!")
+=======
+            print('Created Database!')
+
+>>>>>>> main

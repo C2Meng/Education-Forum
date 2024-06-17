@@ -6,52 +6,41 @@
     <p>In a rush? Pick a template from past Quizzes shared by faculty members.</p>
 </div>
 
+ 
+    
 <div class="container">
-    <h2>Math - Topic 1,2,3</h2><br>
+    <!--Jinja2 Filter: sort all subject into sorted_quizzes from quizzes-->
+    {% set sorted_quizzes = quizzes|sort(attribute='subject') %}
+    <!--takes sorted list of quizzes, groups by subject, and iterates over each group -->
+    {% for subject, subject_quizzess in sorted_quizzes|groupby('subject') %}
+    
+        <div>
+            <h2 style="margin-bottom: -15px ;">{{ subject }}</h2><br>
+        </div>
+            
+            
+                
+            <div class="row" style="margin-bottom: 2%;">
+                <!--iterates over list of quizzes inside subject group-->
+                {% for quiz in subject_quizzess %} 
+                <div class="col-lg-3" style="margin-top: 1px;">
+                    <div class="card h-80" style="background-color: #F0CC6F;border-color: #F0CC6F; margin-bottom: 4%">
+                        <a class="card-body" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}">
+                            <h4 style="color: white;">Quiz by:</h4>
+                            <h3 style="color: white;">{{ quiz.user.full_name }}</h3>
+                        </a>
+                        <div class="card-footer"  style="background-color: white;border-color: white;">
+                            <p1>Created on: {{ quiz.date_created }} </p1>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+  
+    {% endfor %}
 </div>
 
-<div class="container">
-<div class="row" style="height: 200px;">
-    <div class="col-lg-4" style="padding-bottom: 2%;">
-        <div class="card h-100" style="background-color: #95B8ED;border-color: #95B8ED;">
-            <a class="card-body" href="/create-quiz">
-                <h2 style="color: white;">Quiz by:</h2>
-                <h1 style="color: white;">Mdm JMJ</h1>
-            </a>
-            <div class="card-footer"  style="background-color: white;border-color: white;">
-                <p1>Term: 24010</p1><br>
-                <p1>20 Questions - MCQ</p1>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4" style="padding-bottom: 2%;">
-        <div class="card h-100" style="background-color: #FFA0A0;border-color: #FFA0A0;">
-            <a class="card-body" href="/create-quiz">
-                <h2 style="color: white;">Quiz by:</h2>
-                <h1 style="color: white;">Dr. Khan</h1>
-            </a> 
-            <div class="card-footer"  style="background-color: white;border-color: white;">
-                <p1>Term: 24010</p1><br>
-                <p1>20 Questions - MCQ</p1>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4" style="padding-bottom: 2%;">
-        <div class="card h-100" style="background-color: #F3D78E;border-color: #F3D78E;">
-            <a class="card-body" href="/create-quiz">
-                <h2 style="color: white;">Quiz by:</h2>
-                <h1 style="color: white;">Dr. Nisaa</h1>
-            </a>
-            <div class="card-footer"  style="background-color: white;border-color: white;">
-                <p1>Term: 24010</p1><br>
-                <p1>20 Questions - MCQ</p1>
-
-            </div>
-        </div>
-    </div>
-
-</div>
-</div>
 {% endblock %}

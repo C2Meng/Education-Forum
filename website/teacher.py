@@ -8,9 +8,10 @@ from sqlalchemy import func
 
 teacher = Blueprint('teacher', __name__)
 
-@teacher.route('/discovery')
+@teacher.route('/discovery', methods = ['GET','POST'])
 def discovery():
-    return render_template('discovery.html', user=current_user)
+    quizzes = Quiz.query.all()
+    return render_template('discovery.html', quizzes=quizzes, user=current_user)
 
 @teacher.route('/admin_home',methods = ['GET'] )
 def admin_home():
