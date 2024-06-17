@@ -5,10 +5,13 @@ from flask_login import LoginManager
 
 db = SQLAlchemy()
 DB_NAME = "users.db"
+DB_NAME_2 = "user_status.db"
+
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hello kitty'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db' #this made the whole thing work
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user_status.db' #this made the whole thing work
     db.init_app(app) # init connection to db
 
     from .views import views
@@ -23,7 +26,7 @@ def create_app():
     app.register_blueprint(teacher, url_prefix='/')
     app.register_blueprint(student, url_prefix='/')
     
-    from .models import Quiz, Question, Answer, User, StudentResult
+    from .models import Quiz, Question, Answer, User, User_status, StudentResult
     with app.app_context():
          create_database(app)
 
@@ -34,11 +37,15 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
-    
+        
     return app 
 
 def create_database(app):
     if not path.exists('website/'+ DB_NAME):
         with app.app_context():
             db.create_all()
-            print('Created Database!')
+            print('Created database for users')
+    if not path.exists(DB_NAME_2):
+        with app.app_context():
+            db.create_all()
+            print("Created database for user status!")

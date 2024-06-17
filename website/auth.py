@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+from .models import User, User_status
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
@@ -14,6 +14,7 @@ def login():
         password = request.form.get('password') 
 
         user = User.query.filter_by(email=email).first()
+        
         if user:
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
@@ -42,6 +43,8 @@ def sign_up():
         user_status = request.form.get('user_status')
 
         user = User.query.filter_by(email=email).first()
+        userStatus = User_status.query.filter_by(user_status=user_status).first()
+
         if user:
             flash('Email already exists.', category='error')
 
@@ -53,20 +56,22 @@ def sign_up():
             flash('Password does not match.', category='error')
         elif len(password1) < 7:
             flash('Password must have at least 8 characters.', category='error')
-        elif len(user_status) < 7:
-            flash('User status must be more than 7 characters', category='error')
+       
         else:
             new_user = User(email=email, full_name=full_name, password=generate_password_hash(password1))
             db.session.add(new_user)
             db.session.commit()
+
+            new_user_status = User_status(user_status=user_status)
+            db.session.add(new_user_status)
+            db.session.commit()
+
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
         
 
-<<<<<<< HEAD
     return render_template("sign_up.html", user=current_user)
-=======
     full_name = request.form.get('fullName','')
     password1 = request.form.get('password1','') #redundant codes to store the info user keyed in, values keyed in html form
     email = request.form.get('email', '')
@@ -74,4 +79,3 @@ def sign_up():
     user_status = request.form.get('user_status')
     return render_template("sign_up.html", user=current_user, full_name=full_name, 
                            password1=password1, email=email, password2=password2, user_status=user_status)
->>>>>>> main

@@ -8,12 +8,16 @@ from sqlalchemy.sql import func #implements automatic time recording
 from . import db
 from flask_login import UserMixin
 
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     full_name = db.Column(db.String(150))
     
+class User_status(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_status = db.Column(db.String(150))
     
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key= True)  #creating unique id for quiz 
