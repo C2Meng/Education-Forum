@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav mx-auto h6">
                 {% if user.is_authenticated %}
-                    {% if userStatus == "Teacher" %}
+                    {% if userStatus == Teacher %}
                         <a class="nav-item nav-link" id="createquiz" href="/create-quiz">Create Quiz</a>
                         <a class="nav-item nav-link" id="discovery" href="/discovery">Discovery</a>
                         <a class="nav-item nav-link" id="admin" href="/admin_home">Admin</a>
