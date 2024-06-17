@@ -38,6 +38,12 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+    
+    return app 
+
+    @login_manager.userStatus_loader
+    def load_userStatus(id):
+        return User_status.query.get(int(id))
         
     return app 
 
@@ -45,13 +51,10 @@ def create_database(app):
     if not path.exists('website/'+ DB_NAME):
         with app.app_context():
             db.create_all()
-<<<<<<< HEAD
             print('Created database for users')
     if not path.exists(DB_NAME_2):
         with app.app_context():
             db.create_all()
             print("Created database for user status!")
-=======
-            print('Created Database!')
+           
 
->>>>>>> main
