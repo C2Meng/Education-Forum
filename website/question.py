@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from .models import Quiz, Question, Answer, User, StudentResult
 from website import db
 from flask_login import current_user
+import json
 
 question = Blueprint('question', __name__)
 
@@ -106,7 +107,31 @@ def view_quiz(quiz_id):
     return render_template('view_quiz.html', quiz=quiz, user=current_user)
 
 
+#deleting a quiz
+@question.route('/delete_quiz/<int:quiz_id>', methods=['POST'])
+def delete_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
 
+    #making sure authorisation to delete quiz is there
+    if quiz.user_id == current_user.id:
+            questions = Question.query.filter_by(quiz_id=quiz_id).all()
+            for question in questions:
+                answers = Answer.query.filter_by(question_id=question.id).all()
+                for answer in answers:
+                    db.session.delete(answer)
+                db.session.delete(question)
+            db.session.delete(quiz)
+            db.session.commit()
+
+            flash('Quiz deleted successfully.',  category='success')
+            return redirect(url_for('teacher.admin_home'))
+
+    else:
+        flash('You do not have authorisation to delete this quiz.',  category='error')
+        return redirect(url_for('teacher.admin_home'))
+
+    
+#add user relevant quiz
 
 #submitting quiz to get result
 @question.route('/submit-quiz/<int:quiz_id>', methods=['POST'])
