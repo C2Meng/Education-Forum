@@ -19,7 +19,7 @@
        
       </head>
       <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 2px solid #DFDFDF; margin-bottom: 20px;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 2px solid #DFDFDF; margin-bottom: 0px;">
           <button
             class="navbar-toggler"
             type="button"
@@ -38,7 +38,7 @@
                   <a class="nav-item nav-link" id="createquiz" href="/create-quiz">Create Quiz</a>
                   <a class="nav-item nav-link" id="discovery" href="/discovery">Discovery</a>
                   <a class="nav-item nav-link" id="admin" href="/admin_home">Admin</a>
-                  <a class="btn btn-dark btn-sm nav-item" id="logout" href="/logout">Logout</a>
+                  <a class="btn btn-outline-dark btn-sm nav-item" id="logout" href="/logout">Logout</a>
                   {% else %}
                   <a class="nav-item nav-link" id="login" href="/login">Login</a>
                   <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
@@ -46,7 +46,8 @@
             </div>
           </div>
 
-          <img src='images/logo-mmu.png' alt="mmu logo" />
+          <a href="https://lh3.googleusercontent.com/drive-viewer/AKGpihZJ1wizNwY3l5B-yGbILNKPzvQ0AwYSd99j86k7N64nKupTUvxEl0NLdy0NJwmx6OV121ebw2YN1DMWwxmY77MkZwefAjLnlA=s2560?source=screenshot.guru"> <img src="https://lh3.googleusercontent.com/drive-viewer/AKGpihZJ1wizNwY3l5B-yGbILNKPzvQ0AwYSd99j86k7N64nKupTUvxEl0NLdy0NJwmx6OV121ebw2YN1DMWwxmY77MkZwefAjLnlA=s2560" /> </a>
+
       </nav>
 
       {% with messages = get_flashed_messages(with_categories=true) %}

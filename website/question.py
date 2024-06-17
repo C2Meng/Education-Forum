@@ -132,5 +132,38 @@ def submit_quiz(quiz_id):
     return render_template('score.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
 
 
+@question.route('/share_quiz/<int:quiz_id>', methods=['GET', 'POST'])
+def share_quiz(quiz_id):
+    ori_quiz=Quiz.query.get_or_404(quiz_id)
 
+    #copy quiz
+    copy_quiz=Quiz(
+        title=ori_quiz.title, 
+        subject=ori_quiz.subject, 
+        description=f"Quiz on {ori_quiz.subject}",
+        user_id=current_user.id
+    )
+    db.session.add(copy_quiz)
+    db.session.commit()
+
+    #copy question
+    for ori_question in ori_quiz.questions:
+        copy_question=Question(text=ori_question.text, quiz_id=copy_quiz.id)
+        db.session.add(copy_question)
+        db.session.commit()
+
+        for ori_answer in ori_question.answers:
+            copy_answer=Answer(
+                text=ori_answer.text, 
+                is_correct=ori_answer.is_correct, 
+                question_id=copy_question.id)
+            db.session.add(copy_answer)
+
+    db.session.commit()
+
+    flash('Quiz shared succesfully!', 'success')
+    return redirect(url_for('teacher.admin_home', quiz_id=copy_quiz.id))
+
+    
+    
 

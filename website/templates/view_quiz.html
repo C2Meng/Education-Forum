@@ -4,7 +4,7 @@
 <body style="background-color: #E8F1F1;">
 
 
-<div  class="card p-3" style="margin:0% 10%; border-radius: 10px;">
+<div  class="card p-3" style="margin:2% 10%; border-radius: 10px;">
     <h3 align="center">{{quiz.title}}</h3>
     <p align="center"><strong>Subject:</strong> {{ quiz.subject }}</p>
 </div>
@@ -40,8 +40,11 @@
         </div>
     {% endfor %}
 
-    <a class="btn btn-primary btn-sm" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}" 
-    style="margin: 1% 10%;">Add question</a>
+    <a class="btn btn-dark btn-outline-light btn-sm" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}" 
+    style="margin-left: 10%; margin-right: 2%;">Add question</a>
+
+    <a class="btn btn-dark btn-outline-light btn-sm" href="{{ url_for('question.share_quiz', quiz_id=quiz.id) }}" 
+    >Share quiz</a>
     
 
 </body>
