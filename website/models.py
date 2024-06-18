@@ -11,14 +11,16 @@ from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(150), unique=True)
-    password = db.Column(db.String(150))
-    full_name = db.Column(db.String(150))
-    
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    full_name = db.Column(db.String(150), nullable=False)
+    user_status_id = db.Column(db.Integer, db.ForeignKey('user_status.id'), nullable=False)
+
 class User_status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_status = db.Column(db.String(150))
-    
+    status = db.Column(db.String(50), unique=True, nullable=False)
+    users = db.relationship('User', backref='status', lazy=True)
+
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key= True)  #creating unique id for quiz 
     title = db.Column(db.String(100), nullable=False) #nullable=false means not accepting null values
