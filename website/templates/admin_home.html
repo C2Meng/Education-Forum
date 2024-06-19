@@ -10,7 +10,9 @@
 <div class="container">
 <div class="row">
 
+    
     {% for quiz in quizzes %} <!--to display created quizzes-->
+    {% if quiz.user_id == current_user.id %} <!--only display quizzes made my current tutor-->
         <div class="col-lg-3" style="padding-bottom: 2%;">
             <div class="card" style="background-color: #FFA0A0;border-color: white;">
                 <div class="card-body" id="heading{{quiz.id}}"> <!--create card-->
@@ -23,6 +25,7 @@
                     style="text-align: left;">
 
                         <h3 style="color: white;">Quiz #{{quiz.id}}</h3>
+                        
                         <h3 style="color: white;">{{quiz.title}}</h3>
 
                     </button>
@@ -47,15 +50,25 @@
                             <a class="btn btn-light btn-sm" href="{{ url_for('teacher.quiz_data', quiz_id=quiz.id)}}"
                             style="margin-top: 2%;">View Data</a>
 
+                            <form action="{{ url_for('question.delete_quiz', quiz_id=quiz.id) }}" method="post" style="display: inline-block;">
+                                <button 
+                                type="submit" 
+                                class="btn btn-light btn-sm" 
+                                onclick="return confirm('Do you want to permanently delete {{ quiz }}?');" 
+                                style="margin-top: 2%;">Delete</button>
+                            </form>
+                            
 
-                            <a class="btn btn-light btn-sm text-center" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeZquD9O2en4zgwii80Tpjyc9MaMb_b0XJwQ&s" 
-                            style="margin-top: 2%;">Delete Quiz</a>
+                            
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
+    {% endif %}
+    {% endfor %}
+    
 
 
     <div class="col-lg-3" style="padding-bottom: 2%;"> <!--create "Add More" card-->
