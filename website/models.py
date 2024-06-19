@@ -14,12 +14,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
     full_name = db.Column(db.String(150), nullable=False)
-    user_status_id = db.Column(db.Integer, db.ForeignKey('user_status.id'), nullable=False)
+    user_status = db.Column(db.String, nullable=False)
 
-class User_status(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    status = db.Column(db.String(50), unique=True, nullable=False)
-    users = db.relationship('User', backref='status', lazy=True)
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key= True)  #creating unique id for quiz 

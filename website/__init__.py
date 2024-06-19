@@ -9,7 +9,7 @@ DB_NAME = "app.db"
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hello kitty'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db' #this made the whole thing work
     db.init_app(app)  # Initialize connection to the database
 
     # Import blueprints and models
@@ -25,7 +25,7 @@ def create_app():
     app.register_blueprint(teacher, url_prefix='/')
     app.register_blueprint(student, url_prefix='/')
 
-    from .models import User, User_status  # Import models
+    from .models import User  # Import models
 
     # Create database if it doesn't exist
     with app.app_context():
@@ -40,9 +40,6 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
-    # Context processor to inject user status into templates
-    @app.context_processor
-    def inject_user_status():
         if current_user.is_authenticated:
             user_status = User_status.query.filter_by(id=current_user.user_status_id).first()
             return dict(userStatus=user_status.status)
