@@ -73,8 +73,7 @@ def sign_up():
                     return redirect(url_for('views.home'))
                 except IntegrityError:
                     db.session.rollback()
-                    flash('An error occurred. Please try again.', category='error')
-
+                  
 
     return render_template("sign_up.html", user=current_user)
 
