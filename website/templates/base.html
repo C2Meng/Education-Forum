@@ -28,23 +28,23 @@
         >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand mb-0 h1" id="home" href="/" style="font-weight: bold;">ebiHelp</a>
+        <a class="navbar-brand mb-0 h1" style="font-weight: bold;">ebiHelp</a>
         
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav mx-auto h6">
                 {% if user.is_authenticated %}
                     {% if user.user_status == "Teacher" %}
-                        <a class="nav-item nav-link" id="createquiz" href="/create-quiz">Create Quiz</a>
+                        <a class="nav-item nav-link" id="createquiz" href="/create_quiz">Create Quiz</a>
                         <a class="nav-item nav-link" id="discovery" href="/discovery">Discovery</a>
                         <a class="nav-item nav-link" id="admin" href="/admin_home">Admin</a>
                         <a class="btn btn-dark btn-sm nav-item" id="logout" href="/logout">Logout</a>
                     {% elif user.user_status == "Student" %}
-                        <a class="nav-item nav-link" id="myquiz" href="/my-quiz">My Quiz</a>
+                        <a class="nav-item nav-link" id="myquiz" href="/my_quiz">My Quiz</a>
                         <a class="btn btn-dark btn-sm nav-item" id="logout" href="/logout">Logout</a>
                     {% endif %}
                 {% else %}
                     <a class="nav-item nav-link" id="login" href="/login">Log In</a>
-                    <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+                    <a class="nav-item nav-link" id="signUp" href="/sign_up">Sign Up</a>
                 {% endif %}
             </div>
         </div>
