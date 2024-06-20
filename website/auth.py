@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/')
+@auth.route('/') #lead to login page after running the app
 def index():
     return redirect(url_for('auth.login'))
 
