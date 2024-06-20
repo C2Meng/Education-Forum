@@ -3,6 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+from sqlalchemy.exc import IntegrityError
+
 
 
 auth = Blueprint('auth', __name__)
@@ -44,8 +46,11 @@ def sign_up():
         user_status = request.form.get('user_status').strip() 
 
         user = User.query.filter_by(email=email).first()
+
         # Validate form inputs
-        if len(email) < 5 or '@' not in email or '.' not in email:
+        if user:
+            flash('Email already exists. Please sign up with another email.', category ='error')
+        if len(email) < 5 or '@' not in email or '.com' not in email:
             flash('Please enter a valid email', category='error')
         elif len(full_name) < 2:
             flash('Please enter your full name.', category='error')
@@ -57,13 +62,19 @@ def sign_up():
             flash('Please select a valid role.', category='error')
         
         else:
+                new_user = User(email=email, full_name=full_name, password=generate_password_hash(password1), user_status=user_status)
+
                 # Create new User object and add to session
-                new_user = User(email=email, full_name=full_name, password=generate_password_hash(password1) , user_status = user_status)
-                db.session.add(new_user)
-                db.session.commit()
-                login_user(new_user, remember=True)
-                flash('Account created!', category='success')
-                return redirect(url_for('views.home'))
+                try:
+                    db.session.add(new_user)
+                    db.session.commit()
+                    login_user(new_user, remember=True)
+                    flash('Account created!', category='success')
+                    return redirect(url_for('views.home'))
+                except IntegrityError:
+                    db.session.rollback()
+                    flash('An error occurred. Please try again.', category='error')
+
 
     return render_template("sign_up.html", user=current_user)
 
