@@ -10,17 +10,17 @@ question = Blueprint('question', __name__)
 
 
 #displays all quizzes
-@question.route('/my-quiz', methods = ['GET', 'POST'] )
+@question.route('/my_quiz', methods = ['GET', 'POST'] )
 def my_quiz():
     user= User.query.all()
     quizzes = Quiz.query.all()
-    return render_template('my-quiz.html', quizzes=quizzes, user=current_user)
+    return render_template('my_quiz.html', quizzes=quizzes, user=current_user)
 
 
 
 
 #creating quiz from scratch
-@question.route('/create-quiz', methods = ['GET','POST'])
+@question.route('/create_quiz', methods = ['GET','POST'])
 def create_quiz():
    if request.method == 'POST':
         title = request.form['title']
@@ -53,10 +53,10 @@ def create_quiz():
         
         db.session.commit()
         
-        return redirect(url_for('question.my_quiz', quiz_id = quiz.id))
+        return redirect(url_for('question.view_quiz', quiz_id = quiz.id))
         #return redirect(url_for('question.display_quiz', quiz_id=quiz.id))
    
-   return render_template('create-quiz.html', user=current_user)
+   return render_template('create_quiz.html', user=current_user)
 
 
 
