@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from .models import Quiz, Question, Answer, User, StudentResult
 from website import db
-from flask_login import current_user
+from flask_login import login_required, current_user
 import json
 
 question = Blueprint('question', __name__)
@@ -11,8 +11,9 @@ question = Blueprint('question', __name__)
 
 #displays all quizzes
 @question.route('/my_quiz', methods = ['GET', 'POST'] )
+@login_required
 def my_quiz():
-    user= User.query.all()
+    user = User.query.all()
     quizzes = Quiz.query.all()
     return render_template('my_quiz.html', quizzes=quizzes, user=current_user)
 
