@@ -85,12 +85,13 @@ def sign_up():
                     db.session.rollback()
                   
 
-    return render_template("sign_up.html", user=current_user)
-
+    
+    #this remembers user's input if error is found in form
     full_name = request.form.get('fullName','')
-    password1 = request.form.get('password1','') #redundant codes to store the info user keyed in, values keyed in html form
+    password1 = request.form.get('password1','') #redundant codes to store the info user keyed in, values called in html form
     email = request.form.get('email', '')
     password2 = request.form.get('password2','')
     user_status = request.form.get('user_status')
+
     return render_template("sign_up.html", user=current_user, full_name=full_name, 
-                           password1=password1, email=email, password2=password2, user_status=user_status)
+                            password1=password1, email=email, password2=password2, user_status=user_status)
