@@ -1,8 +1,11 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %}
 
 {% block content %}
-<form method = "POST">
+<form method = "POST" style="margin: 3% 10%;">
     <h3 align ="center" style="margin-top: 3%;">Sign Up</h3>
+    
+    <p align="center">Already have an account? <a href="{{ url_for('auth.login') }}">Log In</a></p>
+    
     <div class ="form-group">
         <label for="email">Email Address</label>
         <input 
@@ -12,7 +15,7 @@
         name="email" 
         placeholder="Enter email"
         value = {{email}}
-        />
+        >
     </div>
     <div class ="form-group">
         <label for="fullName">Full Name</label>
@@ -23,7 +26,7 @@
         name="fullName" 
         placeholder="Enter full name"
         value = {{full_name}}
-        />
+        >
     </div>
     <div class ="form-group">
         <label for="password1">Password</label>
@@ -34,7 +37,7 @@
         name="password1" 
         placeholder="Enter password"
         value = {{password1}}
-        />
+        >
     </div>
     <div class ="form-group">
         <label for="password2">Confirm Password</label>
@@ -45,16 +48,17 @@
         name="password2" 
         placeholder="Confirm password"
         value = {{password2}}
-        />
+        >
     </div>
     <div class ="form-group">
-        <label for="user_status">Enter status: </label>
+        <label for="user_status">Enter role: </label>
         <select name="user_status" id="user_status">
             <option value="Teacher">Teacher</option>
             <option value="Student">Student</option>
         </select>
     </div>
-    <br />
+    
     <button type ="submit" class="btn btn-primary">Submit</button>
 </form>
+
 {% endblock %}

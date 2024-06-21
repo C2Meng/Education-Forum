@@ -13,13 +13,12 @@ def create_app():
     db.init_app(app)  # Initialize connection to the database
 
     # Import blueprints and models
-    from .views import views
     from .auth import auth
     from .question import question
     from .teacher import teacher
     from .student import student
 
-    app.register_blueprint(views, url_prefix='/')
+    
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(question, url_prefix='/')
     app.register_blueprint(teacher, url_prefix='/')
