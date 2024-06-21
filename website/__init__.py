@@ -39,11 +39,6 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
-        if current_user.is_authenticated:
-            user_status = User_status.query.filter_by(id=current_user.user_status_id).first()
-            return dict(userStatus=user_status.status)
-        return dict(userStatus=None)
-
     return app
 
 def create_database(app):
