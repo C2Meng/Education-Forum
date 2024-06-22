@@ -65,10 +65,10 @@
 <body>
     <div class="container">
         <div class="score-box">
-            <h4>Quiz Results</h4>
-            <h5>Your Score</h5>
+            <h3>Quiz Results</h3>
+            <h3>{{score}} / {{total_questions}}</h3>
             <p id="user-score"></p>
-            <a>Great job!</a>
+            
         </div>
         <div class="leaderboard">
             <h2>Leaderboard</h2>
@@ -77,70 +77,23 @@
                     <tr>
                         <th>Rank</th>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>Score</th>
                     </tr>
                 </thead>
                 <tbody id="leaderboard-body">
-                  
+                    {% for result in all_results %} 
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ result.user.full_name }}</td>
+                    <td>{{ result.user.email }}</td>
+                    <td>{{ result.score }}</td>
+                </tr>
+                {% endfor %}
+        
                 </tbody>
             </table>
-        </div> <br></br>
-        <button id="exportBtn">Export to CSV</button>
-    </div>
-    <script>
-        const leaderboardData = [
-            { rank: 1, name: 'Tim', score: 95 },
-            { rank: 2, name: 'Cassie', score: 90 },
-            { rank: 3, name: 'Edward', score: 85 },
-            { rank: 4, name: 'Bella', score: 80 },
-            { rank: 5, name: 'Jasper', score: 75 }
-        ];
-
-        function renderLeaderboard(data) {
-            const leaderboardBody = document.getElementById('leaderboard-body');
-            data.forEach(entry => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${entry.rank}</td><td>${entry.name}</td><td>${entry.score}</td>`;
-                leaderboardBody.appendChild(row);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderLeaderboard(leaderboardData);
-            // Assuming that the user's score corresponds to the first entry in the sample leaderboard data
-            document.getElementById('user-score').innerText = leaderboardData[0].score + '%';
-        });
-
-        // JS to export table to CSV
-        document.getElementById('exportBtn').addEventListener('click', function () { 
-            var csv = [];
-            var rows = document.querySelectorAll("table tr");
-
-            // Loop through all rows
-            for (var i = 0; i < rows.length; i++) {
-                var row = [], cols = rows[i].querySelectorAll("td, th");
-
-                // Loop through all columns in a row
-                for (var j = 0; j < cols.length; j++) 
-                    row.push(cols[j].innerText); // Push text content in cell to row array
-
-                csv.push(row.join(","));  // Join row array in a single string, push to csv array  
-            }
-
-            // Download CSV file
-            // Create Blob (stores data from csv array), {MIME type: file type}
-            var csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
-            var downloadLink = document.createElement("a");
-            downloadLink.download = "result_data.csv"; // File name output
-            downloadLink.href = window.URL.createObjectURL(csvFile); // Create URL for blob to download
-            downloadLink.style.display = "none";
-            document.body.appendChild(downloadLink); // Add anchor element
-            downloadLink.click(); // Trigger download when clicked
-            document.body.removeChild(downloadLink); // Remove anchor element
-        });
-    </script>
-
-   
+       
 
 </body>
 </html>
