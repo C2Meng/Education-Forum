@@ -1,23 +1,17 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %}
+
+{% block content %}
+
 <head>
     <title>Scoreboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
+       
+        .score {
             background: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: .25rem;
+            margin: 2%;
         }
         h1 {
             text-align: center;
@@ -63,7 +57,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="score">
         <div class="score-box">
             <h3>Quiz Results</h3>
             <h3>{{score}} / {{total_questions}}</h3>
@@ -96,4 +90,5 @@
        
 
 </body>
-</html>
+
+{% endblock %}
