@@ -27,7 +27,7 @@
                     <div class="card h-80" style="background-color: #F0CC6F;border-color: #F0CC6F; margin-bottom: 4%">
                         <a class="card-body" href="{{ url_for('question.view_quiz', quiz_id=quiz.id) }}">
                             <h4 style="color: white;">Quiz #{{ quiz.id }}</h4>
-                            <h3 style="color: white;">{{ quiz.user.full_name }}</h3>
+                            <h5 style="color: white;">{{ quiz.user.full_name }}</h5>
                         </a>
                         <div class="card-footer"  style="background-color: white;border-color: white;">
                             <small style="font-weight: 600;">Date: </small><small> {{quiz.date_created}}</small>

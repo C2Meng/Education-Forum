@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from .models import Quiz, Question, Answer, User, StudentResult
 from website import db
 from flask_login import login_required, current_user
@@ -14,33 +14,11 @@ question = Blueprint('question', __name__)
 @question.route('/my_quiz', methods = ['GET', 'POST'] )
 @login_required
 def my_quiz():
-    # Initialize the list of matched quizzes from the session or an empty list
-    matched_quizzes = session.get('matched_quizzes', [])
-   
-    if request.method == 'POST':
-        quiz_code = request.form.get('quiz_code').strip()
+    user = User.query.all()
+    quizzes = Quiz.query.all()
+    return render_template('my_quiz.html', quizzes=quizzes, user=current_user)
 
-        # Attempt to find the quiz by the provided code
-        matched_quiz = Quiz.query.filter_by(id=quiz_code).first()
 
-        if matched_quiz:
-            # Check if the quiz is already in the list
-            if not any(quiz['id'] == matched_quiz.id for quiz in matched_quizzes):
-                matched_quizzes.append({
-                    'id': matched_quiz.id,
-                    'title': matched_quiz.title,
-                    'subject': matched_quiz.subject,
-                    'date_created': matched_quiz.date_created
-                })
-            flash('Quiz found!', category='success')
-        
-        else:
-            flash('Quiz not found. Please ask your tutor for the right code.', category='error')
-
-        session['matched_quizzes'] = matched_quizzes
-
-    
-    return render_template('my_quiz.html', user=current_user,  quizzes=matched_quizzes)
 
 
 #creating quiz from scratch
@@ -177,6 +155,7 @@ def submit_quiz(quiz_id):
     )
     db.session.add(student_result)
     db.session.commit()
+    
     quiz = Quiz.query.get(quiz_id)
 
     # Subquery to get the minimum id for each user in each quiz

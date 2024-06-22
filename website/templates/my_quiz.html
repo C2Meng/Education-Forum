@@ -8,17 +8,6 @@
 </div>
 
 <div class="container">
-    <form action="{{ url_for('question.my_quiz') }}" method="POST">
-
-        <div class="form-group">
-            <label for="quiz_code">Enter Quiz Code:</label>
-            <input type="text" class="form-control form-control-lg" id="quiz_code" name="quiz_code" placeholder="Enter quiz code here">
-            <button type="submit" style="margin-top: 1%;">Enter</button>
-        </div>
-    </form>
-</div>
-
-<div class="container">
     <div class="row">
     
         {% for quiz in quizzes %}
@@ -34,7 +23,7 @@
                     style="text-align: left;">
 
                         <h3 style="color: white;">Quiz: #{{quiz.id}}</h3>
-                        <h3 style="color: white;">{{quiz.title}}</h3>
+                        <h5 style="color: white;">{{quiz.title}}</h5>
 
                     </button>
                 </div>

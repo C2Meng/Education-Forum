@@ -39,10 +39,16 @@
     {% if quiz.user_id == current_user.id %}
     <a class="btn btn-dark btn-outline-light btn-sm" href="{{ url_for('question.add_question', quiz_id=quiz.id) }}" 
     style="margin-bottom: 2%; margin-left: 2%;">Add question</a>
-    {% endif %}
 
     <a class="btn btn-dark btn-outline-light btn-sm" href="{{ url_for('question.share_quiz', quiz_id=quiz.id) }}" 
+    style="margin-bottom: 2%; margin-left: 2%;">Share quiz again</a>
+
+    {% endif %}
+
+    {% if not quiz.user_id == current_user.id %}
+    <a class="btn btn-dark btn-outline-light btn-sm" href="{{ url_for('question.share_quiz', quiz_id=quiz.id) }}" 
     style="margin-bottom: 2%; margin-left: 2%;">Share quiz</a>
+    {% endif %}
 
 </div>
 </body>
