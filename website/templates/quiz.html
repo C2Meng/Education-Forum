@@ -4,7 +4,7 @@
 <body style="background-color: #E8F1F1;">
 
 
-<div  class="card p-3" style="margin:0% 10%; border-radius: 10px;">
+<div  class="card p-3" style="margin:2% 10%; border-radius: 10px;">
     <h3 align="center">{{quiz.title}}</h3>
     <p align="center"><strong>Subject:</strong> {{ quiz.subject }}</p>
 </div>
@@ -19,7 +19,7 @@
             <p1>{{ loop.index }}. {{ question.text }}</p1><br>
             {% for answer in question.answers %}
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="question_{{quiz.id }}" id="answer_{{ answer.id }}" value="{{ answer.id }}" required>
+                    <input class="form-check-input" type="radio" name="question_{{question.id }}" id="answer_{{ answer.id }}" value="{{ answer.id }}" required>
                     <label class="form-check-label" for="answer_{{ answer.id }}">
                         {{ answer.text }}
                     </label>

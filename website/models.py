@@ -3,15 +3,19 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.sql import func #implements automatic time recording
+
+
 from . import db
 from flask_login import UserMixin
 
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(150), unique=True)
-    password = db.Column(db.String(150))
-    full_name = db.Column(db.String(150))
-   
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    full_name = db.Column(db.String(150), nullable=False)
+    user_status = db.Column(db.String, nullable=False)
+
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key= True)  #creating unique id for quiz 
@@ -19,7 +23,12 @@ class Quiz(db.Model):
     description = db.Column(db.String(200)) #actually instructions for the quiz, should appear before student answers quiz
     subject = db.Column(db.String(100), nullable= False)
     questions = db.relationship('Question', backref ='quiz', lazy=True)
-    date_created = db.Column(db.DateTime(timezone=True), default=func.now())  
+    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+
+    user = db.relationship('User', backref=db.backref('tutor', lazy=True))
+    
     
 
 class Question(db.Model):
@@ -32,7 +41,7 @@ class Answer(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
     text = db.Column(String(100), nullable=False)
-    is_correct = db.Column(db.Boolean, nullable = False)
+    is_correct =db.Column(db.Boolean, nullable = False)
 
 class StudentResult(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -42,8 +51,3 @@ class StudentResult(db.Model):
 
     quiz = db.relationship('Quiz', backref=db.backref('result', lazy=True))
     user = db.relationship('User', backref=db.backref('result', lazy=True) )
-    
-
-
-
-    
