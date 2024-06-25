@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 
 
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__) #__name__ allows flask to identify the location of the auth module
 
 @auth.route('/') #lead to login page after running the app
 def index():
@@ -21,7 +21,7 @@ def login():
         password = request.form.get('password')
         
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(email=email).first() 
         if user:
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
