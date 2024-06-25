@@ -45,8 +45,8 @@ class Answer(db.Model):
 
 class StudentResult(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     score = db.Column(db.Integer, nullable=False)
 
     quiz = db.relationship('Quiz', backref=db.backref('result', lazy=True))

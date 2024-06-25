@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from .models import Quiz, Question, Answer, User, StudentResult
 from website import db
 from flask_login import login_required, current_user
-import json
+from sqlalchemy import func
+
 
 question = Blueprint('question', __name__)
 
@@ -155,7 +156,26 @@ def submit_quiz(quiz_id):
     db.session.add(student_result)
     db.session.commit()
     
-    return render_template('score.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user)
+    quiz = Quiz.query.get(quiz_id)
+
+    # Subquery to get the minimum id for each user in each quiz
+    subquery = db.session.query(
+        func.min(StudentResult.id).label('min_id')
+    ).filter(
+        StudentResult.quiz_id==quiz_id
+    ).group_by(StudentResult.user_id).subquery()
+    
+    # Query to get the first entry for each user (display first attempt score only)
+    first_results = db.session.query(StudentResult).filter(
+        StudentResult.id == subquery.c.min_id
+    ).all()
+    
+    
+
+    first_results.sort(key=lambda result: result.score, reverse=True)
+    
+
+    return render_template('score.html', quiz=quiz, score=score, total_questions=total_questions, user=current_user, all_results=first_results)
 
 
 @question.route('/share_quiz/<int:quiz_id>', methods=['GET', 'POST'])
@@ -189,7 +209,6 @@ def share_quiz(quiz_id):
 
     flash('Quiz shared succesfully!', 'success')
     return redirect(url_for('teacher.admin_home', quiz_id=copy_quiz.id))
-
     
     
 

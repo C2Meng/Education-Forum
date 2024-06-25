@@ -11,7 +11,7 @@ auth = Blueprint('auth', __name__) #__name__ allows flask to identify the locati
 
 @auth.route('/') #lead to login page after running the app
 def index():
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.logout'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])

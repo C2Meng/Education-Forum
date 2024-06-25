@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %} {% block title %}Login{% endblock %}
+
+{% block content %}
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scoreboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
+       
+        .score {
             background: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: .25rem;
+            margin: 2%;
         }
         h1 {
             text-align: center;
@@ -67,13 +57,12 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        
+    <div class="score">
         <div class="score-box">
-            <h4>Quiz Results</h4>
-            <h5>Your Score</h5>
-            <p> {{score}}</p>
-            <a>Great job!</a>
+            <h3>Quiz Results</h3>
+            <h3>{{score}} / {{total_questions}}</h3>
+            <p id="user-score"></p>
+            
         </div>
         <div class="leaderboard">
             <h2>Leaderboard</h2>
@@ -82,42 +71,24 @@
                     <tr>
                         <th>Rank</th>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>Score</th>
                     </tr>
                 </thead>
                 <tbody id="leaderboard-body">
-                  
+                    {% for result in all_results %} 
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ result.user.full_name }}</td>
+                    <td>{{ result.user.email }}</td>
+                    <td>{{ result.score }}</td>
+                </tr>
+                {% endfor %}
+        
                 </tbody>
             </table>
-        </div>
-    </div>
-    <script>
-        
-        const leaderboardData = [
-            { rank: 1, name: 'Tim', score: 95 },
-            { rank: 2, name: 'Cassie', score: 90 },
-            { rank: 3, name: 'Edward', score: 85 },
-            { rank: 4, name: 'Bella', score: 80 },
-            { rank: 5, name: 'Jasper', score: 75 }
-        ];
-
-        function renderLeaderboard(data) {
-            const leaderboardBody = document.getElementById('leaderboard-body');
-            data.forEach(entry => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${entry.rank}</td><td>${entry.name}</td><td>${entry.score}</td>`;
-                leaderboardBody.appendChild(row);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderLeaderboard(leaderboardData);
-            document.getElementById('user-score').innerText = leaderboardData[0].score + '%';
-        });
-    </script>
-
-    <a class="btn btn-light btn-sm text-center" href="{{ url_for('question.my_quiz', quiz_id=quiz.id) }}" 
-    style="margin-top: 50%;">Back</a>
+       
 
 </body>
-</html>
+
+{% endblock %}
